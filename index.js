@@ -48,9 +48,9 @@ mainEl.classList.add("flex-ctr");
 
 //* Part three
 
-// topMenuEl.innerHTML +=`<a href=$(menuLinks.href}>${menuLinks.text}</a>`;
+topMenuEl.innerHTML +=`<a href=$(menuLinks.href}>${menuLinks.text}</a>`;
 //need for loop to iterate over entire array top call out will get you 'undefined'
-for (let i = 0; i < menuLinks. length; i++) {
+for (let i = 0; i < menuLinks.length; i++) {
     topMenuEl.innerHTML += `<a href=${menuLinks[i].href}>${menuLinks[i].text}</a>`;
 }
 
@@ -69,22 +69,56 @@ subMenuEl.style.top = '0';
 
 // Part four
 
+const topMenuLinks = topMenuEl.getElementsByTagName('a')
 // Select and cache all <a> elements inside of topMenuEl in variable named topMenuLinks
-const topMenuLinks = document.querySelectorAll("a");
+// Loop through the buttons and add the active class to the current/clicked button
+topMenuEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  if(e.target.tagName != "A"){
+    return;
+  } else {
+    activeLink(e.target.textContent);
+  }
+})
 
-for (const node of topMenuLinks) {
-  node.addEventListener("click", handleClick);
+const activeLink = (str) => {
+  for(let i = 0; i < topMenuLinks.length; i++){
+      topMenuLinks[i].classList.remove("active");
+    if(str === topMenuLinks[i].textContent){
+      topMenuLinks[i].classList.add('active')
+    }
+  }
 }
 
-function handleClick(event) {
-  handleClick.preventDefault();
-  console.log(event)
-  return
-}
 
-function toggle(){
-  topMenuLinks.classList.toggle("nav a.active")
-}
+
+
+
+// for (var i = 0; i < topMenuLinks.length; i++) {
+//   topMenuLinks[i].addEventListener("click", function() {
+//     var current = document.getElementsByClassName("nav a.active");
+
+    // If there's no active class
+//     if (current.length > 0) {
+//       current[0].className = current[0].className.replace("nav a.active", "");
+//     }
+
+    // Add the active class to the current/clicked button
+//     this.className += "nav a.active";
+//   });
+// }
+
+// for (const node of topMenuLinks) {
+//   node.addEventListener("click", handleClick);
+// }
+// function handleClick(event) {
+//   handleClick.preventDefault();
+//   console.log(event)
+//   return
+// }
+// function toggle(){
+//   topMenuLinks.classList.toggle("nav a.active")
+// }
 
 // Toggle is not functioning not sure if my topMenuLinks variable is working
 // topMenuLinks.addEventListener('click', handleClick);
